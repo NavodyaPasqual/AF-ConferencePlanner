@@ -7,7 +7,7 @@ class NavBar extends Component {
     render(){
         return (
             <div data-testid="nav-1">
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                     <div className="container-fluid">
                         <a className="navbar-brand" href="/">Conference Planner</a>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -21,13 +21,19 @@ class NavBar extends Component {
                                     <a className="nav-link active" aria-current="page" href="/">Home</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/subjectpage">Subjects</a>
+                                    <a className="nav-link" href="/workshop">WorkShop</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/create-subject">Create Subjects</a>
+                                    <a className="nav-link" href="/workshop-attendee">Attendee</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="/create-course">Create Course</a>
+                                    <a className="nav-link" href="/editor">Conference</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/researcher">Researcher</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/reviewer">Reviewer</a>
                                 </li>
                             </ul>
                         </div>

@@ -1,18 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
-import NavBar from "./home/navBar";
+import PageRoutes from "./routes/pageRoutes";
 
 function App() {
     return (
         <div>
-            <Router>
-                <NavBar/>
-            </Router>
+            <PageRoutes/>
         </div>
     )
 }
+
 ReactDOM.render (
     <React.StrictMode>
         <App/>
