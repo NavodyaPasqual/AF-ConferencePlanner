@@ -43,7 +43,7 @@ app.route('/').get((req, res) => {
 //API endpoints
 app.use('/workshop', workShopAPI());
 app.use('/workshoppayment', workShopPaymentAPI());
-//app.use('/attendee', attendeeAPI());
+app.use('/attendee', attendeeAPI());
 
 
 app.listen(PORT,()=>{

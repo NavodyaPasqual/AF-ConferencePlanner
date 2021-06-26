@@ -10,7 +10,7 @@ module.exports = function () {
     //GET WorkShopPayment By ID
     router.get('/viewbyid/:id', controller.viewPaymentById);
     //GET WorkShop By WorkShopPaymentID
-    router.get('/viewbyid/workshop/:id', controller.viewWorkShopByPaymentId);
+    router.get('/viewbyid/workshops/:id', controller.viewWorkShopByPaymentId);
     //DELETE WorkShopPayment By ID
     router.delete('/delete/:id', controller.deleteById);
     return router;
