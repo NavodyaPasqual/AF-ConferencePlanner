@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const workShopAPI = require('./src/api/workShopAPI');
+const workShopPaymentAPI = require('./src/api/workShopPaymentAPI');
 
 dotenv.config();
 const app = express();
@@ -40,6 +41,7 @@ app.route('/').get((req, res) => {
 
 //API endpoints
 app.use('/workshop', workShopAPI());
+app.use('/workshoppayment', workShopPaymentAPI());
 
 
 app.listen(PORT,()=>{
