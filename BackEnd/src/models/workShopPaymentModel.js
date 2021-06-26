@@ -37,11 +37,11 @@ const WorkshopPaymentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    workShop: {
+    workshops: [{
         type: mongoose.Schema.Types.ObjectId,
         required: false,
         ref: 'workshops'
-    }
+    }]
 });
 
 module.exports = mongoose.model('workshoppayments', WorkshopPaymentSchema);

@@ -20,7 +20,7 @@ const createWorkshop = async (req, res) => {
 }
 
 /**
- * Get all WorkShops controller
+ * Get all WorkShop controller
  * @param req
  * @param res
  * @returns {Promise<any>}
@@ -63,7 +63,7 @@ const viewById = async (req, res) => {
 const deleteById = async (req, res) => {
     const id = req.params.id
     await WorkShop.findByIdAndRemove(id).exec()
-    res.send('itemUpdated');
+    res.send('itemDeleted');
 }
 
 /**
