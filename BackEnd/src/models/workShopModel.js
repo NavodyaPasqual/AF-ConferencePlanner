@@ -4,30 +4,29 @@ const WorkshopSchema = new mongoose.Schema({
     organizerName: {
         type: String,
         required: true,
-        min: 2,
-        max: 450
+        trim: true
     },
     organizerContactNo: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     organizerEmail: {
         type: String,
-        required: true,
-        min: 2,
-        max: 450
+        required: true
+    },
+    workShopTitle: {
+        type: String,
+        required: true
     },
     description : {
         type: String,
         required: true,
-        min: 2,
-        max: 1050
+        trim: true
     },
     proposalURL: {
         type: String,
-        required: true,
-        min: 2,
-        max: 1050
+        required: true
     },
     estimatedDuration: {
         type: Number,
