@@ -8,7 +8,7 @@ import Footer from "../home/footer";
 import Register from "../register/register";
 import WorkShop from "../workShop/workShop";
 import CreateWorkShop from "../workShop/createWorkShop";
-import Attendee from "../attendee/attendee";
+import AttendeeWorkshopRegistration from "../attendee/attendeeWorkshopRegistration";
 import Researcher from "../researcher/researcher";
 import Reviewer from "../reviewer/reviewer";
 import Editor from "../editor/editor";
@@ -23,7 +23,7 @@ function PageRoutes() {
                         <Route path="/reviewer" component={Reviewer}/>
                         <Route path="/researcher" component={Researcher}/>
                         <Route path="/editor" component={Editor}/>
-                        <Route path="/workshop-attendee" component={Attendee}/>
+                        <Route path="/workshop-attendee" component={AttendeeWorkshopRegistration}/>
                         <Route path="/create-workshop" component={CreateWorkShop}/>
                         <Route path="/workshop" component={WorkShop}/>
                         <Route path="/registration" component={Register}/>

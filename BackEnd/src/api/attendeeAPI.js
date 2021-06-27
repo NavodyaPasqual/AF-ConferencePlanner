@@ -3,15 +3,15 @@ const router = express.Router();
 const controller = require('../controller/attendeeController');
 
 module.exports = function () {
-    //POST Attendee
+    //POST AttendeeWorkshopRegistration
     router.post('/create', controller.createAttendee);
-    //GET all Attendee
+    //GET all AttendeeWorkshopRegistration
     router.get('/', controller.getAllAttendee);
-    //GET Attendee By ID
+    //GET AttendeeWorkshopRegistration By ID
     router.get('/viewbyid/:id', controller.viewAttendeeById);
     //GET WorkShop By AttendeeID
     router.get('/viewbyid/workshop/:id', controller.viewWorkShopByAttendeeId);
-    //DELETE Attendee By ID
+    //DELETE AttendeeWorkshopRegistration By ID
     router.delete('/delete/:id', controller.deleteById);
     return router;
 }

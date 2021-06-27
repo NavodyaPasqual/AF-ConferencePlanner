@@ -37,7 +37,7 @@ const getAllAttendee = async (req, res) => {
 }
 
 /**
- * Get a specific Attendee controller
+ * Get a specific AttendeeWorkshopRegistration controller
  * @param req
  * @param res
  * @returns {Promise<any>}
@@ -56,7 +56,7 @@ const viewAttendeeById = async (req, res) => {
 }
 
 /**
- * Get a specific WorkShop according to Attendee controller
+ * Get a specific WorkShop according to AttendeeWorkshopRegistration controller
  * @param req
  * @param res
  * @returns {Promise<any>}
