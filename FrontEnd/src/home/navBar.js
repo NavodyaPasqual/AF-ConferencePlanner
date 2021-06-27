@@ -30,6 +30,9 @@ class NavBar extends Component {
                                     <a className="nav-link" href="/workshop-attendee">Attendee</a>
                                 </li>
                                 <li className="nav-item">
+                                    <a className="nav-link" href="/workshop-payment">Attendee payment</a>
+                                </li>
+                                <li className="nav-item">
                                     <a className="nav-link" href="/editor">Conference</a>
                                 </li>
                                 <li className="nav-item">
