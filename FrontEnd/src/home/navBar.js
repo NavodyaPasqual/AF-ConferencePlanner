@@ -60,6 +60,12 @@ class NavBar extends Component {
                                     <a className="nav-link" href="/researcher">Researcher</a>
                                 </li>
                                 <li className="nav-item">
+                                    <a className="nav-link" href="/research-paper">Research Papers</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="/research-payment-details">Research Payment Details</a>
+                                </li>
+                                <li className="nav-item">
                                     <a className="nav-link" href="/reviewer">Reviewer</a>
                                 </li>
                             </ul>

@@ -19,6 +19,9 @@ import ViewAttendeeWorkShopPayments from "../admin/attendee/viewAttendeeWorkShop
 import Researcher from "../researcher/researcher";
 import Reviewer from "../reviewer/reviewer";
 import Editor from "../editor/editor";
+import ViewResearchPaper from "../researcher/viewResearchPaper";
+import ResearchPaperPayment from "../researcher/researchPaperPayment";
+import ViewPaymentDetails from "../researcher/viewPaymentDetails";
 
 function PageRoutes() {
     return (
@@ -29,6 +32,9 @@ function PageRoutes() {
                     <Switch>
                         <Route path="/reviewer" component={Reviewer}/>
                         <Route path="/researcher" component={Researcher}/>
+                        <Route path="/research-paper" component={ViewResearchPaper}/>
+                        <Route path="/research-paper-payment" component={ResearchPaperPayment}/>
+                        <Route path="/research-payment-details" component={ViewPaymentDetails}/>
                         <Route path="/editor" component={Editor}/>
                         <Route path="/admin/attendee-payments" component={ViewAttendeeWorkShopPayments}/>
                         <Route path="/admin/attendee-workshop" component={ViewAttendee}/>
