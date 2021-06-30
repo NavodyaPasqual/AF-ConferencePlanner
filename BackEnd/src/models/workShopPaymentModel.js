@@ -33,10 +33,6 @@ const WorkshopPaymentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    paymentSlip: {
-        type: String,
-        required: true
-    },
     status: {
         type: String,
         default: "not validated"

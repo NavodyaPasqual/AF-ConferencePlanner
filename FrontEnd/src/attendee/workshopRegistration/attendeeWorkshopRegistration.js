@@ -70,6 +70,7 @@ class AttendeeWorkshopRegistration extends Component {
         axios.post('http://localhost:8080/attendee/create', attendee )
             .then(response => {
                 alert('Data successfully inserted')
+                this.props.history.push('/workshop-attendee');
             })
             .catch(error => {
                 console.log(error.message);

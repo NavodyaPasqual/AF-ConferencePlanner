@@ -45,7 +45,7 @@ const getAllWorkshopPayment = async (req, res) => {
 const viewPaymentById = async (req, res) => {
     if (req.params && req.params.id) {
         await WorkshopPayment.findById(req.params.id)
-            .populate('workshoppayments', '_id name contactNo email depositedAmount depositedDate bank branch paymentSlip workShop')
+            .populate('workshoppayments', '_id name contactNo email depositedAmount depositedDate bank branch workShop')
             .then(response => {
                 res.status(200).send({ data: response });
             })

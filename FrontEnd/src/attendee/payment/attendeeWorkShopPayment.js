@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from 'react-router-dom';
 import axios from 'axios';
 import Select from 'react-select';
 
@@ -11,7 +12,6 @@ const initialState = {
     depositedDate: '',
     bank: '',
     branch: '',
-    paymentSlip: '',
     workshops: [],
     options: [],
     selectedWorkShop:[]
@@ -29,7 +29,7 @@ class AttendeeWorkShopPayment extends Component {
         this.state = initialState;
     }
 
-    //to get subjects array from the backend
+    //to get workshop array from the backend
     componentDidMount() {
         axios.get('http://localhost:8080/workshop/')
             .then(response => {
@@ -68,7 +68,6 @@ class AttendeeWorkShopPayment extends Component {
             depositedDate: this.state.depositedDate,
             bank: this.state.bank,
             branch: this.state.branch,
-            paymentSlip: this.state.paymentSlip,
             workshops: this.state.selectedWorkShop
         }
         //call the end point and pass the values using axios
@@ -76,17 +75,19 @@ class AttendeeWorkShopPayment extends Component {
         axios.post('http://localhost:8080/workshoppayment/create', workshoppayment )
             .then(response => {
                 alert('Data successfully inserted')
+                this.props.history.push('/workshop-payment');
             })
             .catch(error => {
                 console.log(error.message);
                 alert(error.message)
             })
+
     }
 
     render() {
         return (
             <div className="container">
-                <h1>Registration for WorkShops</h1>
+                <h1>Payment for WorkShops</h1>
                 <form onSubmit={this.onSubmit}>
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">Full Name</label>
@@ -162,17 +163,6 @@ class AttendeeWorkShopPayment extends Component {
                             id="branch"
                             name="branch"
                             value={this.state.branch}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="paymentSlip" className="form-label">paymentSlip</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            id="paymentSlip"
-                            name="paymentSlip"
-                            value={this.state.paymentSlip}
                             onChange={this.onChange}
                         />
                     </div>

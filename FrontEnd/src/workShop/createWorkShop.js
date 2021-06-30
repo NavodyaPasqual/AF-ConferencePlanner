@@ -48,6 +48,7 @@ class CreateWorkShop extends Component {
         axios.post('http://localhost:8080/workshop/create', workshop)
             .then(response => {
                 alert('Data successfully inserted')
+                this.props.history.push('/workshop/my');
             })
             .catch(error => {
                 console.log(error.message);
@@ -151,7 +152,6 @@ class CreateWorkShop extends Component {
                     <button type="submit" className="btn btn-primary">Register</button>
                 </form>
             </div>
-
         )
     }
 }
