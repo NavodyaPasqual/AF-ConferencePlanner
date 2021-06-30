@@ -74,13 +74,9 @@ const deleteById = async (req, res) => {
  */
 const updateById = async (req, res) => {
     const id = req.params.id;
-    const {organizerName, organizerContactNo, organizerEmail, description, proposalURL} = req.body;
+    const {status} = req.body;
     const updateWorkShop = {
-        organizerName,
-        organizerContactNo,
-        organizerEmail,
-        description,
-        proposalURL
+        status
     }
     const update = await WorkShop.findByIdAndUpdate(id, updateWorkShop)
         .then(() => {

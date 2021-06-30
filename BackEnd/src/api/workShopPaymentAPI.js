@@ -13,5 +13,7 @@ module.exports = function () {
     router.get('/viewbyid/workshops/:id', controller.viewWorkShopByPaymentId);
     //DELETE WorkShopPayment By ID
     router.delete('/delete/:id', controller.deleteById);
+    //UPDATE Payment By ID
+    router.put('/update/:id', controller.updateById);
     return router;
 }

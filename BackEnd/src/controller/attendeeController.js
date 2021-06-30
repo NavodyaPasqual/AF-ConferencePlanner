@@ -75,6 +75,27 @@ const viewWorkShopByAttendeeId = async (req, res) => {
 }
 
 /**
+ * Update a ViewWorkShop controller
+ * @param req
+ * @param res
+ * @returns {Promise<any>}
+ */
+const updateById = async (req, res) => {
+    const id = req.params.id;
+    const {status} = req.body;
+    const updateAttendee = {
+        status
+    }
+    const update = await Attendee.findByIdAndUpdate(id, updateAttendee)
+        .then(() => {
+            res.status(200).send({status: "Attendee Registration Updated"})
+        }).catch((err) => {
+            console.log(err);
+            res.status(500).send({status: " Error", error:err.message});
+        })
+}
+
+/**
  * Delete a attendee controller
  * @param req
  * @param res
@@ -92,6 +113,7 @@ const deleteById = async (req, res) => {
  * getAllAttendee: getAllAttendee,
  * viewAttendeeById: viewAttendeeById,
  * viewWorkShopByAttendeeId: viewWorkShopByAttendeeId,
+ * updateById: updateById,
  * deleteById: deleteById}}
  */
 module.exports = {
@@ -99,5 +121,6 @@ module.exports = {
     getAllAttendee,
     viewAttendeeById,
     viewWorkShopByAttendeeId,
+    updateById,
     deleteById
 }

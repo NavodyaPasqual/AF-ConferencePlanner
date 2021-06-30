@@ -75,6 +75,27 @@ const viewWorkShopByPaymentId = async (req, res) => {
 }
 
 /**
+ * Update a payment controller
+ * @param req
+ * @param res
+ * @returns {Promise<any>}
+ */
+const updateById = async (req, res) => {
+    const id = req.params.id;
+    const {status} = req.body;
+    const updatePayment = {
+        status
+    }
+    const update = await WorkshopPayment.findByIdAndUpdate(id, updatePayment)
+        .then(() => {
+            res.status(200).send({status: "Payment Validated"})
+        }).catch((err) => {
+            console.log(err);
+            res.status(500).send({status: " Error", error:err.message});
+        })
+}
+
+/**
  * Delete a ViewWorkShop Payment controller
  * @param req
  * @param res
@@ -99,5 +120,6 @@ module.exports = {
     getAllWorkshopPayment,
     viewPaymentById,
     viewWorkShopByPaymentId,
+    updateById,
     deleteById
 }
