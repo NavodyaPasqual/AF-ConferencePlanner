@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const workShopAPI = require('./src/api/workShopAPI');
 const workShopPaymentAPI = require('./src/api/workShopPaymentAPI');
 const attendeeAPI = require('./src/api/attendeeAPI');
+const conferenceAPI = require('./src/api/conferenceAPI');
 
 dotenv.config();
 const app = express();
@@ -44,6 +45,7 @@ app.route('/').get((req, res) => {
 app.use('/workshop', workShopAPI());
 app.use('/workshoppayment', workShopPaymentAPI());
 app.use('/attendee', attendeeAPI());
+app.use('/conference', conferenceAPI);
 
 
 app.listen(PORT,()=>{

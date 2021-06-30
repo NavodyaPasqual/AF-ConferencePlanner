@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useRef} from "react";
-import ShowImage from "../editor/image";
-import '../editor/view.css';
-import Timer from "../editor/timer";
+import ShowImage from "./image";
+import './view.css';
+import Timer from "./timer";
 import moment from "moment";
 import Typed from "react-typed";
 
-const Home = () => {
+const View = () => {
 
     const [days, setDays] = useState('00');
     const [hours, setHours] = useState('00');
@@ -79,52 +79,52 @@ const Home = () => {
 
     return (
         <div className="body">
-            {confarence.map((c,i)=> (
-                <div className="body" key={i} style={{border: '2px solid #666'}}>
-                    <div className="head">
-                        <Typed
-                            loop
-                            typeSpeed={140}
-                            strings={[c.title]}
-                            loopCount={0}
-                            showCursor
-                            cursorChar="|"
-                            className="self-typed"
-                        />
+                {confarence.map((c,i)=> (
+                    <div className="body" key={i} style={{border: '2px solid #666'}}>
+                        <div className="head">
+                            <Typed
+                                loop
+                                typeSpeed={140}
+                                strings={[c.title]}
+                                loopCount={0}
+                                showCursor
+                                cursorChar="|"
+                                className="self-typed"
+                            />
+                        </div>
+                        <div>
+                            <ShowImage item={c} />
+                        </div>
+                        <div className="description-title" >
+                            <h3> About The Event </h3>
+                        </div>
+                        <div className="description">
+                            <h6>{c.description}</h6>
+                        </div>
+                        <div className="description-title" >
+                            <h3> On </h3>
+                        </div>
+                        <div className="description">
+                            <h4> 5 - 10 September </h4>
+                            {/*<h4>{c.date}</h4>*/}
+                        </div>
+                        <div className="description-title" >
+                            <h3> In </h3>
+                        </div>
+                        <div className="description" >
+                            <h3> {c.venue} </h3>
+                        </div>
+                        <div className="timer">
+                            <Timer
+                                days={days}
+                                hours={hours}
+                                minutes={minutes}
+                                seconds={seconds}/>
+                        </div>
                     </div>
-                    <div>
-                        <ShowImage item={c} />
-                    </div>
-                    <div className="description-title" >
-                        <h3> About The Event </h3>
-                    </div>
-                    <div className="description">
-                        <h6>{c.description}</h6>
-                    </div>
-                    <div className="description-title" >
-                        <h3> On </h3>
-                    </div>
-                    <div className="description">
-                        <h4> 5 - 10 September </h4>
-                        {/*<h4>{c.date}</h4>*/}
-                    </div>
-                    <div className="description-title" >
-                        <h3> In </h3>
-                    </div>
-                    <div className="description" >
-                        <h3> {c.venue} </h3>
-                    </div>
-                    <div className="timer">
-                        <Timer
-                            days={days}
-                            hours={hours}
-                            minutes={minutes}
-                            seconds={seconds}/>
-                    </div>
-                </div>
-            ))}
+                ))}
         </div>
     )
 };
-export default Home;
+export default View;
 
