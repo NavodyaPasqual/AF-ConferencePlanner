@@ -18,6 +18,9 @@ import ManageConference from "../editor/manageConference";
 import UpdateConference from "../editor/updateConference";
 import CreateConference from "../editor/addConference";
 import EditorDashboard from "../editor/editor";
+import UpdateSpeaker from "../editor/updateSpeaker";
+import CreateSpeaker from "../editor/addSpeaker";
+import ManageSpeakers from "../editor/manageSpeakers";
 
 function PageRoutes() {
     return (
@@ -39,6 +42,9 @@ function PageRoutes() {
                         <Route path="/create-conference" component={CreateConference}/>
                         <Route path="/manage-conference" component={ManageConference} />
                         <Route path="/conference/update/:conferenceId" component={UpdateConference} />
+                        <Route path="/create-speaker" component={CreateSpeaker}/>
+                        <Route path="/manage-speaker" component={ManageSpeakers}/>
+                        <Route path="/speaker/update/:speakerId" component={UpdateSpeaker}/>
                     </Switch>
                 </section>
                 <Footer/>

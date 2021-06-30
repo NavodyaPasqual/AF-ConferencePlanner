@@ -33744,7 +33744,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"editor/image.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"editor/speakerImage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33758,14 +33758,14 @@ require("./view.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Get images to conference
+// Get images of speakers
 var ShowImage = function ShowImage(_ref) {
   var item = _ref.item;
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "image"
   }, /*#__PURE__*/_react.default.createElement("img", {
-    src: "http://localhost:8080/conference/photo/".concat(item._id),
-    alt: item.title,
+    src: "http://localhost:8080/speaker/photo/".concat(item._id),
+    alt: item.name,
     className: "mb-3",
     style: {
       maxHeight: '100%',
@@ -39533,7 +39533,7 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _image = _interopRequireDefault(require("../editor/image"));
+var _speakerImage = _interopRequireDefault(require("../editor/speakerImage"));
 
 require("../editor/view.css");
 
@@ -39589,8 +39589,13 @@ var Home = function Home() {
 
   var _useState11 = (0, _react.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      error = _useState12[0],
-      setError = _useState12[1];
+      speakers = _useState12[0],
+      setSpeakers = _useState12[1];
+
+  var _useState13 = (0, _react.useState)([]),
+      _useState14 = _slicedToArray(_useState13, 2),
+      error = _useState14[0],
+      setError = _useState14[1];
 
   var interval = (0, _react.useRef)();
 
@@ -39645,15 +39650,39 @@ var Home = function Home() {
   (0, _react.useEffect)(function () {
     loadConference();
   }, []);
+
+  var getSpeakers = function getSpeakers() {
+    return fetch("http://localhost:8080/speaker/approved/speakers", {
+      method: "GET"
+    }).then(function (response) {
+      return response.json();
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  };
+
+  var loadSpeakers = function loadSpeakers() {
+    getSpeakers().then(function (data) {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setSpeakers(data);
+      }
+    });
+  };
+
+  (0, _react.useEffect)(function () {
+    loadSpeakers();
+  }, []);
   return /*#__PURE__*/_react.default.createElement("div", {
-    className: "body"
+    className: "body",
+    style: {
+      border: '2px solid #666'
+    }
   }, confarence.map(function (c, i) {
     return /*#__PURE__*/_react.default.createElement("div", {
       className: "body",
-      key: i,
-      style: {
-        border: '2px solid #666'
-      }
+      key: i
     }, /*#__PURE__*/_react.default.createElement("div", {
       className: "head"
     }, /*#__PURE__*/_react.default.createElement(_reactTyped.default, {
@@ -39664,7 +39693,7 @@ var Home = function Home() {
       showCursor: true,
       cursorChar: "|",
       className: "self-typed"
-    })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_image.default, {
+    })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_speakerImage.default, {
       item: c
     })), /*#__PURE__*/_react.default.createElement("div", {
       className: "description-title"
@@ -39686,12 +39715,29 @@ var Home = function Home() {
       minutes: minutes,
       seconds: seconds
     })));
-  }));
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+    className: "description-title"
+  }, /*#__PURE__*/_react.default.createElement("h3", null, " Speakers ")), /*#__PURE__*/_react.default.createElement("div", null, speakers.map(function (s, i) {
+    return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+      className: "col-4 mb-3"
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: "card-header",
+      style: {
+        background: "#daf0ff"
+      }
+    }, s.name), /*#__PURE__*/_react.default.createElement("div", {
+      className: "card-body"
+    }, /*#__PURE__*/_react.default.createElement(_speakerImage.default, {
+      item: s
+    }), /*#__PURE__*/_react.default.createElement("p", null, s.description))));
+  })))));
 };
 
 var _default = Home;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../editor/image":"editor/image.js","../editor/view.css":"editor/view.css","../editor/timer":"editor/timer.js","moment":"../node_modules/moment/moment.js","react-typed":"../node_modules/react-typed/dist/react-typed.js"}],"home/navBar.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../editor/speakerImage":"editor/speakerImage.js","../editor/view.css":"editor/view.css","../editor/timer":"editor/timer.js","moment":"../node_modules/moment/moment.js","react-typed":"../node_modules/react-typed/dist/react-typed.js"}],"home/navBar.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50412,8 +50458,18 @@ var EditorDashboard = function EditorDashboard() {
       className: "list-group-item"
     }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       className: "nav-link",
+      to: "/create-speaker"
+    }, " Add Speaker ")), /*#__PURE__*/_react.default.createElement("li", {
+      className: "list-group-item"
+    }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "nav-link",
       to: "/manage-conference"
     }, " Manage Conference ")), /*#__PURE__*/_react.default.createElement("li", {
+      className: "list-group-item"
+    }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "nav-link",
+      to: "/manage-speaker"
+    }, " Manage Speaker ")), /*#__PURE__*/_react.default.createElement("li", {
       className: "list-group-item"
     }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       className: "nav-link",
@@ -50470,7 +50526,7 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _image = _interopRequireDefault(require("./image"));
+var _speakerImage = _interopRequireDefault(require("./speakerImage"));
 
 require("./view.css");
 
@@ -50479,6 +50535,8 @@ var _timer = _interopRequireDefault(require("./timer"));
 var _moment = _interopRequireDefault(require("moment"));
 
 var _reactTyped = _interopRequireDefault(require("react-typed"));
+
+var _reactRouterDom = require("react-router-dom");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50526,8 +50584,13 @@ var View = function View() {
 
   var _useState11 = (0, _react.useState)([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      error = _useState12[0],
-      setError = _useState12[1];
+      speakers = _useState12[0],
+      setSpeakers = _useState12[1];
+
+  var _useState13 = (0, _react.useState)([]),
+      _useState14 = _slicedToArray(_useState13, 2),
+      error = _useState14[0],
+      setError = _useState14[1];
 
   var interval = (0, _react.useRef)();
 
@@ -50582,6 +50645,30 @@ var View = function View() {
   (0, _react.useEffect)(function () {
     loadConference();
   }, []);
+
+  var getSpeakers = function getSpeakers() {
+    return fetch("http://localhost:8080/speaker/approved/speakers", {
+      method: "GET"
+    }).then(function (response) {
+      return response.json();
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  };
+
+  var loadSpeakers = function loadSpeakers() {
+    getSpeakers().then(function (data) {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setSpeakers(data);
+      }
+    });
+  };
+
+  (0, _react.useEffect)(function () {
+    loadSpeakers();
+  }, []);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "body"
   }, confarence.map(function (c, i) {
@@ -50601,7 +50688,7 @@ var View = function View() {
       showCursor: true,
       cursorChar: "|",
       className: "self-typed"
-    })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_image.default, {
+    })), /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_speakerImage.default, {
       item: c
     })), /*#__PURE__*/_react.default.createElement("div", {
       className: "description-title"
@@ -50623,12 +50710,29 @@ var View = function View() {
       minutes: minutes,
       seconds: seconds
     })));
-  }));
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+    className: "description-title"
+  }, /*#__PURE__*/_react.default.createElement("h3", null, " Speakers ")), /*#__PURE__*/_react.default.createElement("div", null, speakers.map(function (s, i) {
+    return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+      className: "col-4 mb-3"
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: "card-header",
+      style: {
+        background: "#00008B"
+      }
+    }, s.name), /*#__PURE__*/_react.default.createElement("div", {
+      className: "card-body"
+    }, /*#__PURE__*/_react.default.createElement(_speakerImage.default, {
+      item: s
+    }), /*#__PURE__*/_react.default.createElement("p", null, s.description))));
+  })))));
 };
 
 var _default = View;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./image":"editor/image.js","./view.css":"editor/view.css","./timer":"editor/timer.js","moment":"../node_modules/moment/moment.js","react-typed":"../node_modules/react-typed/dist/react-typed.js"}],"editor/manageConference.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./speakerImage":"editor/speakerImage.js","./view.css":"editor/view.css","./timer":"editor/timer.js","moment":"../node_modules/moment/moment.js","react-typed":"../node_modules/react-typed/dist/react-typed.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"editor/manageConference.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -50675,8 +50779,7 @@ var ManageConference = function ManageConference() {
     }).catch(function (err) {
       return console.log(err);
     });
-  }; // remove expired or unncessary conferences
-
+  };
 
   var deleteConference = function deleteConference(conferenceId) {
     return fetch("http://localhost:8080/conference/delete/".concat(conferenceId), {
@@ -51275,7 +51378,674 @@ var CreateConference = function CreateConference() {
 
 var _default = CreateConference;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","./layout":"editor/layout.js"}],"routes/pageRoutes.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./layout":"editor/layout.js"}],"editor/updateSpeaker.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _layout = _interopRequireDefault(require("./layout"));
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var UpdateSpeaker = function UpdateSpeaker(_ref) {
+  var match = _ref.match;
+
+  var _useState = (0, _react.useState)({
+    name: '',
+    description: '',
+    status: '',
+    photo: '',
+    loading: false,
+    error: '',
+    createdSpeaker: '',
+    redirectTo: false,
+    formData: ''
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      values = _useState2[0],
+      setValues = _useState2[1];
+
+  var name = values.name,
+      description = values.description,
+      status = values.status,
+      photo = values.photo,
+      loading = values.loading,
+      error = values.error,
+      createdSpeaker = values.createdSpeaker,
+      redirectTo = values.redirectTo,
+      formData = values.formData;
+  (0, _react.useEffect)(function () {
+    init(match.params.speakerId);
+  }, []);
+
+  var updateConference = function updateConference(speakerId, speaker) {
+    return fetch("http://localhost:8080/speaker/update/".concat(speakerId), {
+      method: "PUT",
+      headers: {
+        Accept: "application/json"
+      },
+      body: speaker
+    }).then(function (response) {
+      return response.json();
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  };
+
+  var getOneSpeaker = function getOneSpeaker(speakerId) {
+    return fetch("http://localhost:8080/speaker/".concat(speakerId), {
+      method: "GET"
+    }).then(function (response) {
+      return response.json();
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  };
+
+  var init = function init(speakerId) {
+    getOneSpeaker(speakerId).then(function (data) {
+      if (data.error) {
+        setValues(_objectSpread(_objectSpread({}, values), {}, {
+          error: data.error
+        }));
+      } else {
+        //populate the state
+        setValues(_objectSpread(_objectSpread({}, values), {}, {
+          name: data.name,
+          description: data.description,
+          status: data.status,
+          formData: new FormData()
+        }));
+      }
+    });
+  };
+
+  var handleChange = function handleChange(name) {
+    return function (event) {
+      var value = name === 'photo' ? event.target.files[0] : event.target.value;
+      formData.set(name, value);
+      setValues(_objectSpread(_objectSpread({}, values), {}, _defineProperty({}, name, value)));
+    };
+  }; // After finishing update redirect to dashboard
+
+
+  var redirectEditor = function redirectEditor() {
+    if (redirectTo) {
+      if (!error) {
+        return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
+          to: "/manage-conferences"
+        });
+      }
+    }
+  }; // update the details
+
+
+  var clickSubmit = function clickSubmit(event) {
+    event.preventDefault();
+    setValues(_objectSpread(_objectSpread({}, values), {}, {
+      error: "",
+      loading: true
+    }));
+    updateConference(match.params.speakerId, formData).then(function (data) {
+      if (data.error) {
+        setValues(_objectSpread(_objectSpread({}, values), {}, {
+          error: data.error
+        }));
+      } else {
+        setValues(_objectSpread(_objectSpread({}, values), {}, {
+          name: "",
+          description: "",
+          photo: "",
+          status: "",
+          loading: true,
+          error: false,
+          redirectTo: true,
+          createdSpeaker: data.name
+        }));
+      }
+    });
+  };
+
+  var Update = function Update() {
+    return /*#__PURE__*/_react.default.createElement("form", {
+      className: "mb-3 mt-3",
+      onSubmit: clickSubmit
+    }, /*#__PURE__*/_react.default.createElement("h4", null, " Speaker Photo"), /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-group"
+    }, /*#__PURE__*/_react.default.createElement("label", {
+      className: "btn btn-secondary"
+    }, /*#__PURE__*/_react.default.createElement("input", {
+      onChange: handleChange('photo'),
+      type: "file",
+      name: "photo",
+      accept: "image/*"
+    }))), /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-group"
+    }, /*#__PURE__*/_react.default.createElement("label", {
+      className: "text-muted"
+    }, "Name"), /*#__PURE__*/_react.default.createElement("input", {
+      onChange: handleChange('name'),
+      type: "text",
+      className: "form-control",
+      value: name
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-group"
+    }, /*#__PURE__*/_react.default.createElement("label", {
+      className: "text-muted"
+    }, "Description"), /*#__PURE__*/_react.default.createElement("textarea", {
+      onChange: handleChange('description'),
+      className: "form-control",
+      value: description
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-group"
+    }, /*#__PURE__*/_react.default.createElement("label", {
+      className: "text-muted"
+    }, "Status"), /*#__PURE__*/_react.default.createElement("select", {
+      onChange: handleChange('status'),
+      className: "form-control"
+    }, /*#__PURE__*/_react.default.createElement("option", null, " Please Select "), /*#__PURE__*/_react.default.createElement("option", {
+      value: "NotApproved"
+    }, " Not Approved "), /*#__PURE__*/_react.default.createElement("option", {
+      value: "Approved"
+    }, " Approved "))), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
+      className: "btn btn-outline-primary"
+    }, "Update Speaker"));
+  }; // Show errors when error occured
+
+
+  var ShowError = function ShowError() {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "alert alert-danger",
+      style: {
+        display: error ? '' : 'none'
+      }
+    }, error);
+  }; // Show Success when no errors
+
+
+  var ShowSuccess = function ShowSuccess() {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "alert alert-info",
+      style: {
+        display: createdSpeaker ? '' : 'none'
+      }
+    }, /*#__PURE__*/_react.default.createElement("h2", null, "".concat(createdSpeaker), " is updated!"));
+  }; // Show loading until process completes
+
+
+  var showLoading = function showLoading() {
+    return loading && /*#__PURE__*/_react.default.createElement("div", {
+      className: "alert alert-success"
+    }, /*#__PURE__*/_react.default.createElement("h2", null, "Updating..."));
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_layout.default, {
+    titleheader: "Update Speaker",
+    titleDescription: "G'day Jay, Update speaker here..."
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "border border-info"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "col-md-8 offset-md-2"
+  }, showLoading(), ShowSuccess(), ShowError(), Update(), redirectEditor())));
+};
+
+var _default = UpdateSpeaker;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./layout":"editor/layout.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"editor/addSpeaker.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _layout = _interopRequireDefault(require("./layout"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var CreateSpeaker = function CreateSpeaker() {
+  var _useState = (0, _react.useState)({
+    name: '',
+    description: '',
+    status: '',
+    photo: '',
+    loading: false,
+    error: '',
+    createdSpeaker: '',
+    formData: ''
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      values = _useState2[0],
+      setValues = _useState2[1];
+
+  var name = values.name,
+      description = values.description,
+      status = values.status,
+      photo = values.photo,
+      loading = values.loading,
+      error = values.error,
+      createdSpeaker = values.createdSpeaker,
+      formData = values.formData;
+  (0, _react.useEffect)(function () {
+    setValues(_objectSpread(_objectSpread({}, values), {}, {
+      formData: new FormData()
+    }));
+  }, []);
+
+  var handleChange = function handleChange(name) {
+    return function (event) {
+      var value = name === 'photo' ? event.target.files[0] : event.target.value;
+      formData.set(name, value);
+      setValues(_objectSpread(_objectSpread({}, values), {}, _defineProperty({}, name, value)));
+    };
+  };
+
+  var createSpeaker = function createSpeaker(speaker) {
+    return fetch("http://localhost:8080/speaker/create", {
+      method: "POST",
+      headers: {
+        Accept: "application/json"
+      },
+      body: speaker
+    }).then(function (response) {
+      return response.json();
+    }).catch(function (err) {
+      console.log(err);
+    });
+  };
+
+  var clickSubmit = function clickSubmit(event) {
+    event.preventDefault();
+    setValues(_objectSpread(_objectSpread({}, values), {}, {
+      error: "",
+      loading: true
+    }));
+    createSpeaker(formData).then(function (data) {
+      if (data.error) {
+        setValues(_objectSpread(_objectSpread({}, values), {}, {
+          error: data.error
+        }));
+      } else {
+        setValues(_objectSpread(_objectSpread({}, values), {}, {
+          name: "",
+          description: "",
+          photo: "",
+          status: "",
+          error: false,
+          loading: false,
+          createdConference: data.name
+        }));
+      }
+    });
+  };
+
+  var NewSpeaker = function NewSpeaker() {
+    return /*#__PURE__*/_react.default.createElement("form", {
+      className: "mb-3 mt-3",
+      onSubmit: clickSubmit
+    }, /*#__PURE__*/_react.default.createElement("h4", null, " Speaker Photo"), /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-group"
+    }, /*#__PURE__*/_react.default.createElement("label", {
+      className: "btn btn-secondary"
+    }, /*#__PURE__*/_react.default.createElement("input", {
+      onChange: handleChange('photo'),
+      type: "file",
+      name: "photo",
+      accept: "image/*"
+    }))), /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-group"
+    }, /*#__PURE__*/_react.default.createElement("label", {
+      className: "text-muted"
+    }, "Name"), /*#__PURE__*/_react.default.createElement("input", {
+      onChange: handleChange('name'),
+      type: "text",
+      className: "form-control",
+      value: name
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-group"
+    }, /*#__PURE__*/_react.default.createElement("label", {
+      className: "text-muted"
+    }, "Description"), /*#__PURE__*/_react.default.createElement("textarea", {
+      onChange: handleChange('description'),
+      className: "form-control",
+      value: description
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-group"
+    }, /*#__PURE__*/_react.default.createElement("label", {
+      className: "text-muted"
+    }, "Status"), /*#__PURE__*/_react.default.createElement("select", {
+      onChange: handleChange('status'),
+      className: "form-control"
+    }, /*#__PURE__*/_react.default.createElement("option", null, " Please Select "), /*#__PURE__*/_react.default.createElement("option", {
+      value: "NotApproved"
+    }, " Not Approved "))), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
+      className: "btn btn-outline-primary"
+    }, "Create Speaker"));
+  };
+
+  var ShowError = function ShowError() {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "alert alert-danger",
+      style: {
+        display: error ? '' : 'none'
+      }
+    }, error);
+  };
+
+  var ShowSuccess = function ShowSuccess() {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "alert alert-info",
+      style: {
+        display: createdSpeaker ? '' : 'none'
+      }
+    }, /*#__PURE__*/_react.default.createElement("h2", null, "".concat(createdSpeaker), " is created!"));
+  };
+
+  var showLoading = function showLoading() {
+    return loading && /*#__PURE__*/_react.default.createElement("div", {
+      className: "alert alert-success"
+    }, /*#__PURE__*/_react.default.createElement("h2", null, "Loading..."));
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_layout.default, {
+    titleheader: "Add Speaker",
+    titleDescription: "G'day Jay, add new speakers here..."
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "border border-info"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "col-md-8 offset-md-2"
+  }, showLoading(), ShowSuccess(), ShowError(), NewSpeaker())));
+};
+
+var _default = CreateSpeaker;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./layout":"editor/layout.js"}],"editor/image.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+require("./view.css");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Get images to conference
+var ShowImage = function ShowImage(_ref) {
+  var item = _ref.item;
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "image"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: "http://localhost:8080/conference/photo/".concat(item._id),
+    alt: item.title,
+    className: "mb-3",
+    style: {
+      maxHeight: '100%',
+      maxWidth: '100%'
+    }
+  }));
+};
+
+var _default = ShowImage;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./view.css":"editor/view.css"}],"editor/card.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _image = _interopRequireDefault(require("./image"));
+
+var _reactRouterDom = require("react-router-dom");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Card = function Card(_ref) {
+  var speaker = _ref.speaker;
+
+  var loadSpeakers = function loadSpeakers() {
+    getSpeakers().then(function (data) {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setSpeaker(data);
+      }
+    });
+  };
+
+  var destroySpeaker = function destroySpeaker(speakerId) {
+    deleteSpeaker(speakerId).then(function (data) {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        loadSpeakers();
+      }
+    });
+  }; // remove speakers
+
+
+  var deleteSpeaker = function deleteSpeaker(speakerId) {
+    return fetch("http://localhost:8080/speaker/delete/".concat(speakerId), {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    }).then(function (response) {
+      return response.json();
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "col-4 mb-3"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "card-header"
+  }, speaker.name), /*#__PURE__*/_react.default.createElement("div", {
+    className: "card-body"
+  }, /*#__PURE__*/_react.default.createElement(_image.default, {
+    item: speaker
+  }), /*#__PURE__*/_react.default.createElement("p", null, speaker.description), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/speaker/update/".concat(speaker._id)
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "btn btn-warning m-2"
+  }, "Update")), /*#__PURE__*/_react.default.createElement("button", {
+    className: "btn btn-danger",
+    onClick: function onClick() {
+      return destroySpeaker(speaker._id);
+    }
+  }, "Delete")));
+};
+
+var _default = Card;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./image":"editor/image.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"editor/manageSpeakers.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _layout = _interopRequireDefault(require("./layout"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _card = _interopRequireDefault(require("./card"));
+
+var _speakerImage = _interopRequireDefault(require("./speakerImage"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var ManageSpeakers = function ManageSpeakers() {
+  var _useState = (0, _react.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      speaker = _useState2[0],
+      setSpeaker = _useState2[1]; // get the speakers from backend
+
+
+  var getSpeakers = function getSpeakers() {
+    return fetch("http://localhost:8080/speaker/speakers", {
+      method: "GET"
+    }).then(function (response) {
+      return response.json();
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  }; // remove speakers
+
+
+  var deleteSpeaker = function deleteSpeaker(speakerId) {
+    return fetch("http://localhost:8080/speaker/delete/".concat(speakerId), {
+      method: "DELETE",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    }).then(function (response) {
+      return response.json();
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  };
+
+  var loadSpeakers = function loadSpeakers() {
+    getSpeakers().then(function (data) {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        setSpeaker(data);
+      }
+    });
+  };
+
+  var destroySpeaker = function destroySpeaker(speakerId) {
+    deleteSpeaker(speakerId).then(function (data) {
+      if (data.error) {
+        console.log(data.error);
+      } else {
+        loadSpeakers();
+      }
+    });
+  };
+
+  (0, _react.useEffect)(function () {
+    loadSpeakers();
+  }, []);
+  return /*#__PURE__*/_react.default.createElement(_layout.default, {
+    titleheader: "Manage Speaker Details",
+    titleDescription: "Update and Delete",
+    className: "container-fluid"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "container"
+  }, /*#__PURE__*/_react.default.createElement("h2", {
+    className: "mb-4"
+  }, " Speakers "), /*#__PURE__*/_react.default.createElement("div", {
+    className: "row"
+  }, speaker.map(function (speaker, s) {
+    return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+      className: "col-4 mb-3"
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: "card-header"
+    }, speaker.name), /*#__PURE__*/_react.default.createElement("div", {
+      className: "card-body"
+    }, /*#__PURE__*/_react.default.createElement(_speakerImage.default, {
+      item: speaker
+    }), /*#__PURE__*/_react.default.createElement("p", null, speaker.description), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      to: "/speaker/update/".concat(speaker._id)
+    }, /*#__PURE__*/_react.default.createElement("button", {
+      className: "btn btn-warning m-2"
+    }, "Update")), /*#__PURE__*/_react.default.createElement("button", {
+      className: "btn btn-danger",
+      onClick: function onClick() {
+        return destroySpeaker(speaker._id);
+      }
+    }, "Delete"))));
+  }))));
+};
+
+var _default = ManageSpeakers;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./layout":"editor/layout.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./card":"editor/card.js","./speakerImage":"editor/speakerImage.js"}],"routes/pageRoutes.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -51316,6 +52086,12 @@ var _manageConference = _interopRequireDefault(require("../editor/manageConferen
 var _updateConference = _interopRequireDefault(require("../editor/updateConference"));
 
 var _addConference = _interopRequireDefault(require("../editor/addConference"));
+
+var _updateSpeaker = _interopRequireDefault(require("../editor/updateSpeaker"));
+
+var _addSpeaker = _interopRequireDefault(require("../editor/addSpeaker"));
+
+var _manageSpeakers = _interopRequireDefault(require("../editor/manageSpeakers"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51363,12 +52139,21 @@ function PageRoutes() {
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/conference/update/:conferenceId",
     component: _updateConference.default
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: "/create-speaker",
+    component: _addSpeaker.default
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: "/manage-speaker",
+    component: _manageSpeakers.default
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: "/speaker/update/:speakerId",
+    component: _updateSpeaker.default
   }))), /*#__PURE__*/_react.default.createElement(_footer.default, null)));
 }
 
 var _default = PageRoutes;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../home/home":"home/home.js","../home/navBar":"home/navBar.js","../home/footer":"home/footer.js","../register/register":"register/register.js","../workShop/workShop":"workShop/workShop.js","../workShop/createWorkShop":"workShop/createWorkShop.js","../attendee/attendeeWorkshopRegistration":"attendee/attendeeWorkshopRegistration.js","../attendee/attendeeWorkShopPayment":"attendee/attendeeWorkShopPayment.js","../researcher/researcher":"researcher/researcher.js","../reviewer/reviewer":"reviewer/reviewer.js","../editor/editor":"editor/editor.js","../editor/view":"editor/view.js","../editor/manageConference":"editor/manageConference.js","../editor/updateConference":"editor/updateConference.js","../editor/addConference":"editor/addConference.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../home/home":"home/home.js","../home/navBar":"home/navBar.js","../home/footer":"home/footer.js","../register/register":"register/register.js","../workShop/workShop":"workShop/workShop.js","../workShop/createWorkShop":"workShop/createWorkShop.js","../attendee/attendeeWorkshopRegistration":"attendee/attendeeWorkshopRegistration.js","../attendee/attendeeWorkShopPayment":"attendee/attendeeWorkShopPayment.js","../researcher/researcher":"researcher/researcher.js","../reviewer/reviewer":"reviewer/reviewer.js","../editor/editor":"editor/editor.js","../editor/view":"editor/view.js","../editor/manageConference":"editor/manageConference.js","../editor/updateConference":"editor/updateConference.js","../editor/addConference":"editor/addConference.js","../editor/updateSpeaker":"editor/updateSpeaker.js","../editor/addSpeaker":"editor/addSpeaker.js","../editor/manageSpeakers":"editor/manageSpeakers.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -51414,7 +52199,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61412" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51037" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

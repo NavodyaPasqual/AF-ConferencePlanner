@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-import ShowImage from "../editor/image";
+import ShowImage from "../editor/speakerImage";
 import '../editor/view.css';
 import Timer from "../editor/timer";
 import moment from "moment";
@@ -13,6 +13,7 @@ const Home = () => {
     const [seconds, setSeconds] = useState('00');
 
     const [confarence, setConference] = useState([]);
+    const [speakers, setSpeakers] = useState([]);
     const [error, setError] = useState([]);
 
     let interval = useRef();
@@ -77,10 +78,35 @@ const Home = () => {
     }, []);
 
 
+    const getSpeakers = () => {
+        return fetch(`http://localhost:8080/speaker/approved/speakers`, {
+            method: "GET"
+        })
+            .then(response => {
+                return response.json();
+            })
+            .catch(err => console.log(err));
+    };
+
+    const loadSpeakers = () => {
+        getSpeakers().then(data => {
+            if(data.error) {
+                console.log(data.error)
+            } else {
+                setSpeakers(data)
+            }
+        })
+    };
+
+    useEffect(() => {
+        loadSpeakers();
+    }, [])
+
+
     return (
-        <div className="body">
+        <div className="body" style={{border: '2px solid #666'}}>
             {confarence.map((c,i)=> (
-                <div className="body" key={i} style={{border: '2px solid #666'}}>
+                <div className="body" key={i} >
                     <div className="head">
                         <Typed
                             loop
@@ -123,6 +149,26 @@ const Home = () => {
                     </div>
                 </div>
             ))}
+            <div className="row">
+                <div>
+                    <div className="description-title">
+                        <h3> Speakers </h3>
+                    </div>
+                    <div>
+                        {speakers.map((s,i) => (
+                            <div>
+                                <div className="col-4 mb-3">
+                                    <div className="card-header" style={{background: "#daf0ff" }}>{s.name}</div>
+                                    <div className="card-body">
+                                        <ShowImage item={s}/>
+                                        <p>{s.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
     )
 };

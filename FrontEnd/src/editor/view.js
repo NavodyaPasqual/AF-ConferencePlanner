@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef} from "react";
-import ShowImage from "./image";
+import ShowImage from "./speakerImage";
 import './view.css';
 import Timer from "./timer";
 import moment from "moment";
 import Typed from "react-typed";
+import {Link} from "react-router-dom";
 
 const View = () => {
 
@@ -13,6 +14,7 @@ const View = () => {
     const [seconds, setSeconds] = useState('00');
 
     const [confarence, setConference] = useState([]);
+    const [speakers, setSpeakers] = useState([]);
     const [error, setError] = useState([]);
 
     let interval = useRef();
@@ -77,6 +79,31 @@ const View = () => {
     }, []);
 
 
+    const getSpeakers = () => {
+        return fetch(`http://localhost:8080/speaker/approved/speakers`, {
+            method: "GET"
+        })
+            .then(response => {
+                return response.json();
+            })
+            .catch(err => console.log(err));
+    };
+
+    const loadSpeakers = () => {
+        getSpeakers().then(data => {
+            if(data.error) {
+                console.log(data.error)
+            } else {
+                setSpeakers(data)
+            }
+        })
+    };
+
+    useEffect(() => {
+        loadSpeakers();
+    }, [])
+
+
     return (
         <div className="body">
                 {confarence.map((c,i)=> (
@@ -123,6 +150,26 @@ const View = () => {
                         </div>
                     </div>
                 ))}
+            <div className="row">
+                <div>
+                    <div className="description-title">
+                        <h3> Speakers </h3>
+                    </div>
+                    <div>
+                        {speakers.map((s,i) => (
+                            <div>
+                                <div className="col-4 mb-3">
+                                    <div className="card-header" style={{background: "#00008B" }}>{s.name}</div>
+                                    <div className="card-body">
+                                        <ShowImage item={s}/>
+                                        <p>{s.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
         </div>
     )
 };

@@ -15,7 +15,13 @@ const EditorDashboard = () => {
                         <Link className="nav-link" to="/create-conference" > Add Conference </Link>
                     </li>
                     <li className="list-group-item">
+                        <Link className="nav-link" to="/create-speaker" > Add Speaker </Link>
+                    </li>
+                    <li className="list-group-item">
                         <Link className="nav-link" to="/manage-conference" > Manage Conference </Link>
+                    </li>
+                    <li className="list-group-item">
+                        <Link className="nav-link" to="/manage-speaker" > Manage Speaker </Link>
                     </li>
                     <li className="list-group-item">
                         <Link className="nav-link" to="/view" > Active Conference </Link>

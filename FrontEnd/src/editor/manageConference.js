@@ -18,7 +18,6 @@ const ManageConference = () => {
             .catch(err => console.log(err));
     };
 
-    // remove expired or unncessary conferences
     const deleteConference = (conferenceId) => {
         return fetch(`http://localhost:8080/conference/delete/${conferenceId}`,{
             method: "DELETE",
