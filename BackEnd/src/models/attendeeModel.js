@@ -29,6 +29,10 @@ const AttendeeSchema = new mongoose.Schema({
         min: 2,
         max: 1050
     },
+    status: {
+        type: String,
+        default: "not approved"
+    },
     workshops: [{
         type: mongoose.Schema.Types.ObjectId,
         required: false,

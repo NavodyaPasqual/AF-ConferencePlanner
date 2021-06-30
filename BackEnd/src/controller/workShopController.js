@@ -20,7 +20,7 @@ const createWorkshop = async (req, res) => {
 }
 
 /**
- * Get all WorkShop controller
+ * Get all ViewWorkShop controller
  * @param req
  * @param res
  * @returns {Promise<any>}
@@ -36,7 +36,7 @@ const viewAllWorkshops = async (req, res) => {
 }
 
 /**
- * Get a specific WorkShop controller
+ * Get a specific ViewWorkShop controller
  * @param req
  * @param res
  * @returns {Promise<any>}
@@ -55,7 +55,7 @@ const viewById = async (req, res) => {
 }
 
 /**
- * Delete a WorkShop controller
+ * Delete a ViewWorkShop controller
  * @param req
  * @param res
  * @returns {Promise<any>}
@@ -67,7 +67,7 @@ const deleteById = async (req, res) => {
 }
 
 /**
- * Update a WorkShop controller
+ * Update a ViewWorkShop controller
  * @param req
  * @param res
  * @returns {Promise<any>}
@@ -84,7 +84,7 @@ const updateById = async (req, res) => {
     }
     const update = await WorkShop.findByIdAndUpdate(id, updateWorkShop)
         .then(() => {
-            res.status(200).send({status: "WorkShop Updated"})
+            res.status(200).send({status: "ViewWorkShop Updated"})
         }).catch((err) => {
             console.log(err);
             res.status(500).send({status: " Error", error:err.message});

@@ -36,6 +36,10 @@ const WorkshopSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    status: {
+        type: String,
+        default: "not approved"
+    }
 });
 
 module.exports = mongoose.model('workshops', WorkshopSchema);

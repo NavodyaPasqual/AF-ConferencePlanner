@@ -27,7 +27,7 @@ const createAttendee = async (req, res) => {
  */
 const getAllAttendee = async (req, res) => {
     await Attendee.find({})
-        .populate('attendees', '_id name contactNo email affiliation interest workshops')
+        .populate('workshops', 'workShopTitle description')
         .then(data=>{
             res.status(200).send({data: data});
         })
@@ -56,7 +56,7 @@ const viewAttendeeById = async (req, res) => {
 }
 
 /**
- * Get a specific WorkShop according to AttendeeWorkshopRegistration controller
+ * Get a specific ViewWorkShop according to AttendeeWorkshopRegistration controller
  * @param req
  * @param res
  * @returns {Promise<any>}

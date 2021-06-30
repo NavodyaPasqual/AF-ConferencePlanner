@@ -20,14 +20,14 @@ const createWorkshopPayment = async (req, res) => {
 }
 
 /**
- * Get all WorkShop payment controller
+ * Get all ViewWorkShop payment controller
  * @param req
  * @param res
  * @returns {Promise<any>}
  */
 const getAllWorkshopPayment = async (req, res) => {
     await WorkshopPayment.find({})
-        .populate('workshoppayments', '_id name contactNo email depositedAmount depositedDate bank branch paymentSlip workShop')
+        .populate('workshops', 'workShopTitle description')
         .then(data=>{
             res.status(200).send({data: data});
         })
@@ -37,7 +37,7 @@ const getAllWorkshopPayment = async (req, res) => {
 }
 
 /**
- * Get a specific WorkShop payment controller
+ * Get a specific ViewWorkShop payment controller
  * @param req
  * @param res
  * @returns {Promise<any>}
@@ -56,7 +56,7 @@ const viewPaymentById = async (req, res) => {
 }
 
 /**
- * Get a specific WorkShop according to paymentID controller
+ * Get a specific ViewWorkShop according to paymentID controller
  * @param req
  * @param res
  * @returns {Promise<any>}
@@ -75,7 +75,7 @@ const viewWorkShopByPaymentId = async (req, res) => {
 }
 
 /**
- * Delete a WorkShop Payment controller
+ * Delete a ViewWorkShop Payment controller
  * @param req
  * @param res
  * @returns {Promise<any>}

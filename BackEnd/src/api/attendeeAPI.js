@@ -9,7 +9,7 @@ module.exports = function () {
     router.get('/', controller.getAllAttendee);
     //GET AttendeeWorkshopRegistration By ID
     router.get('/viewbyid/:id', controller.viewAttendeeById);
-    //GET WorkShop By AttendeeID
+    //GET ViewWorkShop By AttendeeID
     router.get('/viewbyid/workshop/:id', controller.viewWorkShopByAttendeeId);
     //DELETE AttendeeWorkshopRegistration By ID
     router.delete('/delete/:id', controller.deleteById);

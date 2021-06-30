@@ -3,15 +3,15 @@ const router = express.Router();
 const controller = require('../controller/workShopController');
 
 module.exports = function () {
-    //POST WorkShop
+    //POST ViewWorkShop
     router.post('/create', controller.createWorkshop);
-    //GET all WorkShop
+    //GET all ViewWorkShop
     router.get('/', controller.viewAllWorkshops);
-    //GET WorkShop By ID
+    //GET ViewWorkShop By ID
     router.get('/viewbyid/:id', controller.viewById);
-    //DELETE WorkShop By ID
+    //DELETE ViewWorkShop By ID
     router.delete('/delete/:id', controller.deleteById);
-    //UPDATE WorkShop By ID
+    //UPDATE ViewWorkShop By ID
     router.put('/update/:id', controller.updateById);
     return router;
 }
