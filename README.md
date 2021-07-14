@@ -9,5 +9,7 @@ International Conference on Application Frameworks (ICAF) is an academic confere
 - [Jayamith Wickramasinghe](https://github.com/Jayamith-Leapstitch)
 - [Ravithamara Wijayabandu](https://github.com/IT19395906)
 
-## Visitors
+<b>Visitors<b/>
+<br/>
+
 ![visitors](https://visitor-badge.laobi.icu/badge?page_id=AF-ConferencePlanner.visitor-badge)
