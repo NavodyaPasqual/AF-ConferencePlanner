@@ -1,0 +1,57 @@
+.parallax {
+    /* The image used */
+    background-image: url('../image/s3.png');
+
+    /* Full height */
+    height: 100%;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Turn off parallax scrolling for tablets and phones. Increase the pixels if needed */
+@media only screen and (max-device-width: 1366px) {
+    .parallax {
+        background-attachment: scroll;
+    }
+}
+
+.button {
+    background-color: Transparent; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button2 {
+    background-color: Transparent;
+    color: #ee7738;
+    font-weight: bold;
+    border: 2px solid #ee7738;
+}
+
+.button2:hover {
+    background-color: #e37434;
+    color: white;
+}
+
+.parallax-container {
+
+    background-color:rgba(0, 0, 0, 0.5);
+}
+.parallax-container-inner {
+    position: relative;
+    top : 200px;
+
+}

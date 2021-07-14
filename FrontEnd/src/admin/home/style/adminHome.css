@@ -1,0 +1,10 @@
+.admin-container {
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+}
+.admin-container a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}

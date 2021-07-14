@@ -74,7 +74,7 @@ class AttendeeWorkShopPayment extends Component {
         console.log('data to send', workshoppayment);
         axios.post('http://localhost:8080/workshoppayment/create', workshoppayment )
             .then(response => {
-                alert('Data successfully inserted')
+                alert('Successfully submitted')
                 this.props.history.push('/workshop-payment');
             })
             .catch(error => {
@@ -86,97 +86,110 @@ class AttendeeWorkShopPayment extends Component {
 
     render() {
         return (
-            <div className="container">
-                <h1>Payment for WorkShops</h1>
-                <form onSubmit={this.onSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="name" className="form-label">Full Name</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="name"
-                            name="name"
-                            value={this.state.name}
-                            onChange={this.onChange}
-                        />
+            <div className="container mt-4 shadow p-3 mb-5 bg-body rounded">
+                <div className="p-3">
+                    <h1>Payment for WorkShops</h1>
+                    <div className="p-3">
+                        <form onSubmit={this.onSubmit} className="row g-3">
+                            <div className="col-12">
+                                <label htmlFor="name" className="form-label">Full Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="name"
+                                    name="name"
+                                    value={this.state.name}
+                                    onChange={this.onChange}
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <label htmlFor="contactNo" className="form-label">Contact Number</label>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text"><i className="fas fa-phone"></i></span>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="contactNo"
+                                        name="contactNo"
+                                        value={this.state.contactNo}
+                                        onChange={this.onChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <label htmlFor="email" className="form-label">Email</label>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text" id="inputGroupPrepend"><i className="far fa-envelope"></i></span>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="email"
+                                        name="email"
+                                        value={this.state.email}
+                                        onChange={this.onChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <label htmlFor="depositedAmount" className="form-label">Deposited Amount</label>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text"><i className="fas fa-dollar-sign"></i></span>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="depositedAmount"
+                                        name="depositedAmount"
+                                        value={this.state.depositedAmount}
+                                        onChange={this.onChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <label htmlFor="depositedDate" className="form-label">Deposited Date</label>
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    id="depositedDate"
+                                    name="depositedDate"
+                                    value={this.state.depositedDate}
+                                    onChange={this.onChange}
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <label htmlFor="bank" className="form-label">Bank</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="bank"
+                                    name="bank"
+                                    value={this.state.bank}
+                                    onChange={this.onChange}
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <label htmlFor="branch" className="form-label">Branch</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="branch"
+                                    name="branch"
+                                    value={this.state.branch}
+                                    onChange={this.onChange}
+                                />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="workShop" className="form-label">WorkShop</label>
+                                <Select
+                                    options = {this.state.options}
+                                    className="basic-multi-select"
+                                    onChange={this.onWorkShopSelect}
+                                    isMulti
+                                />
+                            </div>
+                            <button type="submit" className="btn btn-primary">Submit</button>
+                        </form>
                     </div>
-                    <div className="mb-3">
-                        <label htmlFor="contactNo" className="form-label">contactNo</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="contactNo"
-                            name="contactNo"
-                            value={this.state.contactNo}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label">email</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="email"
-                            name="email"
-                            value={this.state.email}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="depositedAmount" className="form-label">depositedAmount</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="depositedAmount"
-                            name="depositedAmount"
-                            value={this.state.depositedAmount}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="depositedDate" className="form-label">depositedDate</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            id="depositedDate"
-                            name="depositedDate"
-                            value={this.state.depositedDate}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="bank" className="form-label">bank</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="bank"
-                            name="bank"
-                            value={this.state.bank}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="branch" className="form-label">branch</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="branch"
-                            name="branch"
-                            value={this.state.branch}
-                            onChange={this.onChange}
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="workShop" className="form-label">WorkShop</label>
-                        <Select
-                            options = {this.state.options}
-                            className="basic-multi-select"
-                            onChange={this.onWorkShopSelect}
-                            isMulti
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                </div>
             </div>
         )
     }

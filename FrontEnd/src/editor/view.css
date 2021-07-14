@@ -1,0 +1,122 @@
+.body {
+    height:100%;
+    width:100%;
+    background-image: linear-gradient(45deg, #ffffff 100%, #ffffff 100%);
+    overflow: hidden;
+    position: relative;
+}
+.singletopic {
+    height:96vh;
+    width:97.5vw;
+    background-image: linear-gradient(45deg, #ADDBE6 100%,#ADDBE6 100%);
+    overflow: scroll;
+}
+
+main {
+    background: #ffffff;
+    margin: 0;
+    padding: 10px;
+}
+
+.image {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.head {
+    text-align: center;
+    color: darkcyan;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: xxx-large;
+    font-weight: bolder;
+}
+
+.pic {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.main-section {
+    top: 0;
+    height: 100%;
+    width: 100%;
+    padding: 150px 0 0;
+    background-image: linear-gradient(45deg,#00aeef 0%,#096fb9 100%);
+    overflow: hidden;
+    position: relative;
+}
+
+.description-title {
+    text-align: center;
+    color: darkcyan;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.description {
+    margin-left: 15rem;
+    margin-right: 15rem;
+    margin-top: 2rem;
+    text-align: center;
+    color: black;
+}
+
+.timer {
+    margin: 4rem auto;
+    height: 60vh;
+    width: 60vw;
+    background-color: #282c34;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+}
+
+.clock {
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(270deg,#051817,#0e3839);
+    height: 300px;
+    width: 500px;
+    color: #06f1f6;
+    text-shadow: 1px 1px 6px;
+    border-radius: 15px;
+    border: 2px solid silver;
+    box-shadow: 0 0 5px 20px;
+}
+
+.clock section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.clock section p{
+    font-size: 4rem;
+}
+
+.clock section small{
+    color: silver;
+    text-shadow: none;
+}
+
+.semi {
+    font-size: 3em;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+
