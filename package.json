@@ -1,0 +1,25 @@
+{
+  "name": "AF-ConferencePlanner",
+  "version": "1.0.0",
+  "description": "AF-ConferencePlanner",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"cd BackEnd && npm run dev\" \"cd FrontEnd && npm start\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NavodyaPasqual/AF-ConferencePlanner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NavodyaPasqual/AF-ConferencePlanner/issues"
+  },
+  "homepage": "https://github.com/NavodyaPasqual/AF-ConferencePlanner#readme",
+  "devDependencies": {
+    "concurrently": "^6.2.0",
+    "nodemon": "^2.0.9"
+  },
+  "dependencies": {}
+}
