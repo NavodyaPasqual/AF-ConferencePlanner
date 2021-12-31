@@ -11,6 +11,16 @@ International Conference on Application Frameworks (ICAF) is an academic confere
 - [Jayamith Wickramasinghe](https://github.com/Jayamith-Leapstitch)
 - [Ravithamara Wijayabandu](https://github.com/IT19395906)
 
+## Backend Technologies
+
+
+    nodeJS express mongoose body-parser cors jsonwebtoken dotenv 
+
+
+## Frontend Technologies
+
+    react boostrap materialUI 
+
 <b>Visitors<b/>
 <br/>
 
