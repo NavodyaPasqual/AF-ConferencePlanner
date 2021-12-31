@@ -1,5 +1,7 @@
 # ICAF
 
+![Homepage](https://user-images.githubusercontent.com/68048593/147805378-a63dfc20-984d-4d61-a701-74a56dba7645.png)
+
 International Conference on Application Frameworks (ICAF) is an academic conference held by the Sri Lanka Institute of Information Technology (SLIIT). Our team developed ICAF using MERN stack technology.
 
 ## Contributers
